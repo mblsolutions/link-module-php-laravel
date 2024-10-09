@@ -4,7 +4,6 @@ namespace MBLSolutions\LinkModuleLaravel;
 
 use Illuminate\Support\ServiceProvider;
 use MBLSolutions\LinkModule\Auth\LinkModule;
-use MBLSolutions\LinkModule\Links;
 
 class LinkModuleServiceProvider extends ServiceProvider
 {
