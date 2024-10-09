@@ -10,7 +10,7 @@
     "license": "proprietary",
     "autoload": {
         "psr-4": {
-            "Mblsolutions\\LinkModulePhpLaravel\\": "src/"
+            "MBLSolutions\\LinkModuleLaravel\\": "src/"
         }
     },
     "authors": [
