@@ -1,0 +1,23 @@
+{
+    "name": "mblsolutions/link-module-php-laravel",
+    "description": "Link Module interface for Laravel PHP applications.",
+    "type": "library",
+    "require": {
+        "php": "^8.2",
+        "mblsolutions/link-module-php": "dev-main",
+        "illuminate/support": "^10.0|^11.0"
+    },
+    "license": "proprietary",
+    "autoload": {
+        "psr-4": {
+            "Mblsolutions\\LinkModulePhpLaravel\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Hayley Berry",
+            "email": "hayley.berry@appreciategroup.co.uk"
+        }
+    ],
+    "minimum-stability": "dev"
+}
