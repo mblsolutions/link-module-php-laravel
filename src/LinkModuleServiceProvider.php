@@ -4,6 +4,7 @@ namespace MBLSolutions\LinkModuleLaravel;
 
 use Illuminate\Support\ServiceProvider;
 use MBLSolutions\LinkModule\Auth\LinkModule;
+use MBLSolutions\LinkModule\Links;
 
 class LinkModuleServiceProvider extends ServiceProvider
 {
@@ -22,5 +23,11 @@ class LinkModuleServiceProvider extends ServiceProvider
 
         LinkModule::setBaseUri($this->app['config']['link-module.endpoint']);
         LinkModule::setVerifySSL($this->app['config']['link-module.verify_ssl']);
+
+        $this->app->singleton(LinkModuleService::class, function () {
+            return new LinkModuleService(
+                linksClient: $this->app->make(Links::class),
+            );
+        });
     }
 }
