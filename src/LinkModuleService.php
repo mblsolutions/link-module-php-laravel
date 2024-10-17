@@ -3,6 +3,9 @@
 namespace MBLSolutions\LinkModuleLaravel;
 
 use GuzzleHttp\Exception\RequestException;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Config;
+use MBLSolutions\LinkModule\Exceptions\AuthenticationException;
 use MBLSolutions\LinkModule\Links as LinksClient;
 use MBLSolutions\LinkModuleLaravel\Data\CreateLinksResponseData;
 use MBLSolutions\LinkModuleLaravel\Data\CreateLinksRequestData;
@@ -29,6 +32,10 @@ class LinkModuleService
             );
         } catch (RequestException $exception) {
             $this->handleClientException($exception);
+        } catch (AuthenticationException $exception) {
+            $this->flushToken();
+
+            throw $exception;
         }
     }
 
@@ -40,6 +47,10 @@ class LinkModuleService
             );
         } catch (RequestException $exception) {
             $this->handleClientException($exception);
+        } catch (AuthenticationException $exception) {
+            $this->flushToken();
+
+            throw $exception;
         }
     }
 
@@ -51,6 +62,10 @@ class LinkModuleService
             );
         } catch (RequestException $exception) {
             $this->handleClientException($exception);
+        } catch (AuthenticationException $exception) {
+            $this->flushToken();
+
+            throw $exception;
         }
     }
 
@@ -81,5 +96,10 @@ class LinkModuleService
             code: $code,
             previous: $exception
         );
+    }
+
+    private function flushToken(): void
+    {
+        Cache::forget(Config::get('link-module.cache_key'));
     }
 }
