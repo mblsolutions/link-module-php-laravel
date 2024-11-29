@@ -10,17 +10,15 @@ use MBLSolutions\LinkModule\Links as LinksClient;
 use MBLSolutions\LinkModuleLaravel\Data\CreateLinksResponseData;
 use MBLSolutions\LinkModuleLaravel\Data\CreateLinksRequestData;
 use MBLSolutions\LinkModuleLaravel\Data\ErrorResponseData;
-use MBLSolutions\LinkModuleLaravel\Data\LinkData;
 use MBLSolutions\LinkModuleLaravel\Data\RedeemLinkResponseData;
+use MBLSolutions\LinkModuleLaravel\Data\ShowLinkResponseData;
 use MBLSolutions\LinkModuleLaravel\Exceptions\LinksModuleRequestException;
 
 class LinkModuleService
 {
     public function __construct(
         private LinksClient $linksClient
-    )
-    {
-    }
+    ) {}
 
     public function create(CreateLinksRequestData $createLinksRequest): CreateLinksResponseData
     {
@@ -39,10 +37,10 @@ class LinkModuleService
         }
     }
 
-    public function show(string $reference, string $item): LinkData
+    public function show(string $reference, string $item): ShowLinkResponseData
     {
         try {
-            return LinkData::from(
+            return ShowLinkResponseData::from(
                 $this->linksClient->show($reference, $item)
             );
         } catch (RequestException $exception) {
@@ -82,9 +80,11 @@ class LinkModuleService
             $body = $response->getBody()->getContents();
             $decoded = json_decode($body, true);
 
-            if (json_last_error() === JSON_ERROR_NONE &&
+            if (
+                json_last_error() === JSON_ERROR_NONE &&
                 is_array($decoded) &&
-                array_key_exists('status', $decoded)) {
+                array_key_exists('status', $decoded)
+            ) {
                 $errorDetails = ErrorResponseData::from($decoded);
             }
         }
