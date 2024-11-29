@@ -13,11 +13,10 @@ class LinksModuleRequestException extends RuntimeException
     public function __construct(
         public ?ErrorResponseData $errorDetails,
         public ?RequestInterface $request,
-        public ?ResponseInterface $response,
+        public ?ResponseInterface $response = null,
         int $code = 0,
         ?Throwable $previous = null
-    )
-    {
+    ) {
         $message = 'An error occurred with the Links Module API';
 
         if ($errorDetails) {

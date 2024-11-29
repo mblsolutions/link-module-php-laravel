@@ -72,6 +72,7 @@ class LinkModuleService
         $request = $exception->getRequest();
         $code = (int)$exception->getCode();
         $errorDetails = null;
+        $response = null;
 
         if ($exception->hasResponse()) {
             $response = $exception->getResponse();
