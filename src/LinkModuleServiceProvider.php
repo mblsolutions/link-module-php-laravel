@@ -20,7 +20,8 @@ class LinkModuleServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(
-            __DIR__ . '/../config/link-module.php', 'link-module'
+            __DIR__ . '/../config/link-module.php',
+            'link-module'
         );
 
         LinkModule::setBaseUri($this->app['config']['link-module.endpoint']);
@@ -29,7 +30,9 @@ class LinkModuleServiceProvider extends ServiceProvider
         $this->app->singleton(LinkModuleService::class, function () {
             $cacheHit = Cache::get($this->app['config']['link-module.auth.token_cache_key']);
 
-            if (! $cacheHit) {
+            if ($this->app['config']['link-module.static_token']) {
+                $fullTokenString = $this->app['config']['link-module.static_token'];
+            } else if (! $cacheHit) {
                 $authClient = new OAuthResource(
                     tokenUri: $this->app['config']['link-module.auth.token_url'],
                     clientId: $this->app['config']['link-module.auth.client_id'],
