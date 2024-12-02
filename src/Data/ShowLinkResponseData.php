@@ -16,7 +16,7 @@ class ShowLinkResponseData extends Data
         public string $uuid,
 
         #[Required]
-        public string $value,
+        public ?string $value = null,
 
         #[WithCast(DateTimeInterfaceCast::class, type: Carbon::class)]
         public ?CarbonInterface $expiration = null,
