@@ -2,6 +2,7 @@
 
 namespace MBLSolutions\LinkModuleLaravel\Data;
 
+use Amp\NullCancellation;
 use Carbon\Carbon;
 use Carbon\CarbonInterface;
 use Spatie\LaravelData\Attributes\Validation\Required;
@@ -16,7 +17,7 @@ class ShowLinkResponseData extends Data
         public string $uuid,
 
         #[Required]
-        public ?string $value = null,
+        public string|array|null $value = null,
 
         #[WithCast(DateTimeInterfaceCast::class, type: Carbon::class)]
         public ?CarbonInterface $expiration = null,

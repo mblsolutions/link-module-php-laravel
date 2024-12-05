@@ -1,7 +1,7 @@
 # v0.1.2
 
 + Handle requests which don't return a response
-+ Update show link response to allow NULL values
++ Update show link response to allow NULL & array values
 
 # v0.1.1
 
