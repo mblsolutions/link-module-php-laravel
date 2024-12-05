@@ -2,7 +2,6 @@
 
 namespace MBLSolutions\LinkModuleLaravel\Data;
 
-use Amp\NullCancellation;
 use Carbon\Carbon;
 use Carbon\CarbonInterface;
 use Spatie\LaravelData\Attributes\Validation\Required;
