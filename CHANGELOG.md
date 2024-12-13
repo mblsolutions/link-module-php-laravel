@@ -1,3 +1,7 @@
+# V0.2.0
+
++ Add Support for update links endpoint
+
 # v0.1.2
 
 + Handle requests which don't return a response
