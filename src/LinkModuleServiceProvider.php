@@ -13,7 +13,7 @@ class LinkModuleServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__ . '/../config/link-module.php'
+            __DIR__ . '/../config/link-module.php' => config_path('link-module.php')
         ], 'config');
     }
 
