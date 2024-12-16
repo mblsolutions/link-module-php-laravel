@@ -30,6 +30,8 @@ class LinkModuleServiceProvider extends ServiceProvider
             
             if($this->app['config']['link-module.auth.enabled']){
                 $this->setToken();
+            }else{
+                LinkModule::setToken('disabled');
             }
 
             return new LinkModuleService(
