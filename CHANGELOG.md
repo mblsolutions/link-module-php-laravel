@@ -1,6 +1,7 @@
 # V0.2.0
 
 + Add Support for update links endpoint
++ Add the ability to disable open auth for development purposes
 
 # v0.1.2
 

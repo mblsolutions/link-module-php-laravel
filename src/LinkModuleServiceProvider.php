@@ -27,7 +27,19 @@ class LinkModuleServiceProvider extends ServiceProvider
         LinkModule::setVerifySSL($this->app['config']['link-module.verify_ssl']);
 
         $this->app->singleton(LinkModuleService::class, function () {
-            $cacheHit = Cache::get($this->app['config']['link-module.auth.token_cache_key']);
+            
+            if($this->app['config']['link-module.auth.enabled']){
+                $this->setToken();
+            }
+
+            return new LinkModuleService(
+                linksClient: $this->app->make(Links::class),
+            );
+        });
+    }
+
+    private function setToken(){
+        $cacheHit = Cache::get($this->app['config']['link-module.auth.token_cache_key']);
 
             if (! $cacheHit) {
                 $authClient = new OAuthResource(
@@ -46,10 +58,5 @@ class LinkModuleServiceProvider extends ServiceProvider
             }
 
             LinkModule::setToken($fullTokenString);
-
-            return new LinkModuleService(
-                linksClient: $this->app->make(Links::class),
-            );
-        });
     }
 }
