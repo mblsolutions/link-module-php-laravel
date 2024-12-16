@@ -21,5 +21,12 @@
             "email": "hayley.berry@appreciategroup.co.uk"
         }
     ],
-    "minimum-stability": "dev"
+    "minimum-stability": "dev",
+    "extra": {
+        "laravel": {
+          "providers": [
+            "MBLSolutions\\LinkModuleLaravel\\LinkModuleServiceProvider"
+          ]
+        }
+      }
 }
