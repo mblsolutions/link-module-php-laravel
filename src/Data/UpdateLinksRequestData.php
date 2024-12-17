@@ -14,7 +14,16 @@ class UpdateLinksRequestData extends Data
          */
         #[DataCollectionOf(UpdateLinkData::class)]
         public array $items,
-    )
+    ) {}
+
+    public function toArray(): array
     {
+        $data = parent::toArray();
+        return collect($data['items'])->map(function ($item) {
+            if ($item['expiration'] == null) {
+                unset($item['expiration']);
+            }
+            return $item;
+        })->toArray();
     }
 }

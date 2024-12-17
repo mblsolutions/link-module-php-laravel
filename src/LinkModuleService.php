@@ -73,8 +73,9 @@ class LinkModuleService
     {
         try {
             return UpdateLinksResponseData::from(
-                $this->linksClient->update( $reference,
-                    $updateLinksRequestData->items
+                $this->linksClient->update(
+                    $reference,
+                    $updateLinksRequestData->toArray()
                 )
             );
         } catch (RequestException $exception) {
