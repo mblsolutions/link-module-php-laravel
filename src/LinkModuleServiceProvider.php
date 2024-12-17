@@ -20,18 +20,19 @@ class LinkModuleServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(
-            __DIR__ . '/../config/link-module.php', 'link-module'
+            __DIR__ . '/../config/link-module.php',
+            'link-module'
         );
 
         LinkModule::setBaseUri($this->app['config']['link-module.endpoint']);
         LinkModule::setVerifySSL($this->app['config']['link-module.verify_ssl']);
 
         $this->app->singleton(LinkModuleService::class, function () {
-            
-            if($this->app['config']['link-module.auth.enabled']){
+
+            if ($this->app['config']['link-module.auth.enabled']) {
                 $this->setToken();
-            }else{
-                LinkModule::setToken('disabled');
+            } else {
+                LinkModule::disableToken();
             }
 
             return new LinkModuleService(
@@ -40,25 +41,26 @@ class LinkModuleServiceProvider extends ServiceProvider
         });
     }
 
-    private function setToken(){
+    private function setToken()
+    {
         $cacheHit = Cache::get($this->app['config']['link-module.auth.token_cache_key']);
 
-            if (! $cacheHit) {
-                $authClient = new OAuthResource(
-                    tokenUri: $this->app['config']['link-module.auth.token_url'],
-                    clientId: $this->app['config']['link-module.auth.client_id'],
-                    clientSecret: $this->app['config']['link-module.auth.client_secret']
-                );
+        if (! $cacheHit) {
+            $authClient = new OAuthResource(
+                tokenUri: $this->app['config']['link-module.auth.token_url'],
+                clientId: $this->app['config']['link-module.auth.client_id'],
+                clientSecret: $this->app['config']['link-module.auth.client_secret']
+            );
 
-                $accessToken = $authClient->getToken();
+            $accessToken = $authClient->getToken();
 
-                $fullTokenString = $accessToken->tokenType . ' ' . $accessToken->accessToken;
+            $fullTokenString = $accessToken->tokenType . ' ' . $accessToken->accessToken;
 
-                Cache::set($this->app['config']['link-module.auth.token_cache_key'], $fullTokenString, $accessToken->expiresIn - 60);
-            } else {
-                $fullTokenString = $cacheHit;
-            }
+            Cache::set($this->app['config']['link-module.auth.token_cache_key'], $fullTokenString, $accessToken->expiresIn - 60);
+        } else {
+            $fullTokenString = $cacheHit;
+        }
 
-            LinkModule::setToken($fullTokenString);
+        LinkModule::setToken($fullTokenString);
     }
 }
