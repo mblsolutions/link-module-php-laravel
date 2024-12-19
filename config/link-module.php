@@ -36,6 +36,7 @@ return [
     */
 
     'auth' => [
+        'enabled' => env('LINK_MODULE_AUTH_ENABLED', true),
         'token_url' => env('LINK_MODULE_AUTH_TOKEN_URL'),
         'client_id' => env('LINK_MODULE_AUTH_CLIENT_ID'),
         'client_secret' => env('LINK_MODULE_AUTH_CLIENT_SECRET'),

@@ -12,6 +12,8 @@ use MBLSolutions\LinkModuleLaravel\Data\CreateLinksRequestData;
 use MBLSolutions\LinkModuleLaravel\Data\ErrorResponseData;
 use MBLSolutions\LinkModuleLaravel\Data\RedeemLinkResponseData;
 use MBLSolutions\LinkModuleLaravel\Data\ShowLinkResponseData;
+use MBLSolutions\LinkModuleLaravel\Data\UpdateLinksRequestData;
+use MBLSolutions\LinkModuleLaravel\Data\UpdateLinksResponseData;
 use MBLSolutions\LinkModuleLaravel\Exceptions\LinksModuleRequestException;
 
 class LinkModuleService
@@ -57,6 +59,24 @@ class LinkModuleService
         try {
             return RedeemLinkResponseData::from(
                 $this->linksClient->redeem($reference, $item)
+            );
+        } catch (RequestException $exception) {
+            $this->handleClientException($exception);
+        } catch (AuthenticationException $exception) {
+            $this->flushToken();
+
+            throw $exception;
+        }
+    }
+
+    public function update(string $reference, UpdateLinksRequestData $updateLinksRequestData)
+    {
+        try {
+            return UpdateLinksResponseData::from(
+                $this->linksClient->update(
+                    $reference,
+                    $updateLinksRequestData->items
+                )
             );
         } catch (RequestException $exception) {
             $this->handleClientException($exception);

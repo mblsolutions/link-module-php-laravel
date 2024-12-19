@@ -1,3 +1,10 @@
+# V0.2.0
+
++ Add Support for update links endpoint
++ Add the ability to disable open auth for development purposes
++ Update readme to include installation information
++ Fix status enum typo
+
 # v0.1.2
 
 + Handle requests which don't return a response
