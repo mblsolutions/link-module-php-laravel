@@ -1,8 +1,8 @@
-# V0.2.1
+# v0.2.1
 
 + Add support for `cancel` link endpoint
 
-# V0.2.0
+# v0.2.0
 
 + Add Support for update links endpoint
 + Add the ability to disable open auth for development purposes
