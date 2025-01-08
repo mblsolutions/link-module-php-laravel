@@ -9,6 +9,8 @@ use MBLSolutions\LinkModule\Exceptions\AuthenticationException;
 use MBLSolutions\LinkModule\Links as LinksClient;
 use MBLSolutions\LinkModuleLaravel\Data\CreateLinksResponseData;
 use MBLSolutions\LinkModuleLaravel\Data\CreateLinksRequestData;
+use MBLSolutions\LinkModuleLaravel\Data\CancelLinksResponseData;
+use MBLSolutions\LinkModuleLaravel\Data\CancelLinksRequestData;
 use MBLSolutions\LinkModuleLaravel\Data\ErrorResponseData;
 use MBLSolutions\LinkModuleLaravel\Data\RedeemLinkResponseData;
 use MBLSolutions\LinkModuleLaravel\Data\ShowLinkResponseData;
@@ -76,6 +78,24 @@ class LinkModuleService
                 $this->linksClient->update(
                     $reference,
                     $updateLinksRequestData->items
+                )
+            );
+        } catch (RequestException $exception) {
+            $this->handleClientException($exception);
+        } catch (AuthenticationException $exception) {
+            $this->flushToken();
+
+            throw $exception;
+        }
+    }
+
+    public function cancel(string $reference, CancelLinksRequestData $cancelLinksRequestData)
+    {
+        try {
+            return CancelLinksResponseData::from(
+                $this->linksClient->cancel(
+                    $reference,
+                    $cancelLinksRequestData->items
                 )
             );
         } catch (RequestException $exception) {
