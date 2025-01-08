@@ -1,3 +1,7 @@
+# v0.2.2
+
++ Update composer.json to use semantic versioning for mblsolutions/link-module-php package
+
 # v0.2.1
 
 + Add support for `cancel` link endpoint
