@@ -20,5 +20,8 @@ class ShowLinkResponseData extends Data
 
         #[WithCast(DateTimeInterfaceCast::class, type: Carbon::class)]
         public ?CarbonInterface $expiration = null,
+
+        #[Required]
+        public string|null $template = null,
     ) {}
 }
