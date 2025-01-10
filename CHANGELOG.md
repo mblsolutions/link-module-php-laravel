@@ -1,3 +1,7 @@
+# v0.2.4
+
++ Allow ShowLinkResponseData value to store a boolean value.
+
 # v0.2.3
 
 + Add template to show link response.
