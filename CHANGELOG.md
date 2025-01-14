@@ -1,3 +1,6 @@
+# v0.3.0
++ Support updated create link response.
+
 # v0.2.4
 
 + Allow ShowLinkResponseData value to store a boolean value.
