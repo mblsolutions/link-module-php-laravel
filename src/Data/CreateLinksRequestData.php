@@ -27,6 +27,6 @@ class CreateLinksRequestData extends Data
         #[Required]
         public int $quantity = 1,
 
-        public string $meta
+        public ?string $meta = null
     ) {}
 }
