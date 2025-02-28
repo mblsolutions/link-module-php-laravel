@@ -21,6 +21,6 @@ class UpdateLinkData extends Data
         #[WithCast(DateTimeInterfaceCast::class, type: Carbon::class)]
         public ?CarbonInterface $expiration = null,
 
-        public string $meta
+        public ?string $meta = null
     ) {}
 }
