@@ -1,3 +1,7 @@
+# v0.3.1
+
++ Add `CachedTokenResolver` for caching token resolution.
+
 # v0.3.0
 + Support updated create link response.
 + Remove unused expiration field from LinkData.
