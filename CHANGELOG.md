@@ -1,3 +1,6 @@
+# v0.4.1
++ Add `CachedTokenResolver` for caching token resolution.
+
 # v0.4.0
 + Add support for Meta field.
 
