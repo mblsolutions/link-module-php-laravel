@@ -1,3 +1,6 @@
+# v0.4.0
++ Add support for Meta field.
+
 # v0.3.0
 + Support updated create link response.
 + Remove unused expiration field from LinkData.
