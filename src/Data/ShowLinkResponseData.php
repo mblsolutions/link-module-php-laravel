@@ -25,6 +25,6 @@ class ShowLinkResponseData extends Data
         public string|null $template = null,
 
         #[Required]
-        public string|array|null|bool $meta = null
+        public mixed $meta = null
     ) {}
 }
