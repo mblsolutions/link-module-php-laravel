@@ -1,4 +1,7 @@
 # v0.4.1
++ Add support for mixed Meta types
+
+# v0.4.1
 + Add `CachedTokenResolver` for caching token resolution.
 
 # v0.4.0
