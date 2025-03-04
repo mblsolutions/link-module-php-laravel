@@ -1,4 +1,4 @@
-# v0.4.1
+# v0.4.2
 + Add support for mixed Meta types
 
 # v0.4.1
