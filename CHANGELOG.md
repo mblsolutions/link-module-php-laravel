@@ -1,3 +1,7 @@
+# v0.4.2
++ Add support for mixed Meta types.
++ Fix bug with exception handling  where request body would appear empty.
+
 # v0.4.1
 + Add `CachedTokenResolver` for caching token resolution.
 

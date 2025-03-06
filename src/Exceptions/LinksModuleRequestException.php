@@ -23,6 +23,7 @@ class LinksModuleRequestException extends RuntimeException
             $message = $errorDetails->message;
         } else {
             if ($response) {
+                $response->getBody()->rewind();
                 $message = 'Unexpected response: ' . $response->getBody()->getContents();
             }
         }
