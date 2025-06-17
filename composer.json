@@ -5,7 +5,7 @@
     "type": "library",
     "require": {
         "php": "^8.2",
-        "mblsolutions/link-module-php": "^v0.1.2",
+        "mblsolutions/link-module-php": "^v0.2.0",
         "illuminate/support": "^10.0|^11.0",
         "spatie/laravel-data": "^4.7",
         "nesbot/carbon": "^2.72.2|^3.0"

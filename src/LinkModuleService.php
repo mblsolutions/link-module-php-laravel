@@ -14,6 +14,7 @@ use MBLSolutions\LinkModuleLaravel\Data\CancelLinksRequestData;
 use MBLSolutions\LinkModuleLaravel\Data\ErrorResponseData;
 use MBLSolutions\LinkModuleLaravel\Data\RedeemLinkResponseData;
 use MBLSolutions\LinkModuleLaravel\Data\ShowLinkResponseData;
+use MBLSolutions\LinkModuleLaravel\Data\ShowLinksGroupRequestData;
 use MBLSolutions\LinkModuleLaravel\Data\UpdateLinksRequestData;
 use MBLSolutions\LinkModuleLaravel\Data\UpdateLinksResponseData;
 use MBLSolutions\LinkModuleLaravel\Exceptions\LinksModuleRequestException;
@@ -81,6 +82,20 @@ class LinkModuleService
                     $updateLinksRequestData->items,
                     $headers
                 )
+            );
+        } catch (RequestException $exception) {
+            $this->handleClientException($exception);
+        } catch (AuthenticationException $exception) {
+            $this->flushToken();
+
+            throw $exception;
+        }
+    }
+    public function showLinkGroup(string $reference, ShowLinksGroupRequestData $showLinksGroupRequest, array $headers = []): CreateLinksResponseData
+    {
+        try {
+            return CreateLinksResponseData::from(
+                $this->linksClient->showLinkGroup($reference, $showLinksGroupRequest->toArray(), $headers)
             );
         } catch (RequestException $exception) {
             $this->handleClientException($exception);
