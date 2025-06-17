@@ -31,14 +31,21 @@ class CreateLinksResponseData extends Data
 
     public static function fromArray(array $data): self
     {
-        $link = str_replace("{reference_uuid}", $data["reference_uuid"], $data["link"]);
+        $link = (isset($data["link"])) ? str_replace("{reference_uuid}", $data["reference_uuid"], $data["link"]) : '';
         return new self(
             referenceUuid: $data['reference_uuid'],
             expiration: Carbon::parse($data['expiration']),
             items: array_map(
                 function ($item) use ($data, $link) {
-                    $link = str_replace("{item_uuid}", $item, $link);
-                    return new LinkData(uuid: $item, link: $link);
+                    if (is_array($item)) {
+                        $link = (isset($item['link'])) ? $item['link'] : str_replace("{item_uuid}", $item['uuid'], $link);
+                        $serial = (isset($item['serial'])) ? $item['serial'] : '';
+                        $short_code = (isset($item['short_code'])) ? $item['short_code'] : '';
+                        return new LinkData(uuid: $item['uuid'], link: $link, serial: $serial, short_code: $short_code);
+                    } else {
+                        $link = str_replace("{item_uuid}", $item, $link);
+                        return new LinkData(uuid: $item, link: $link);
+                    }
                 },
                 $data['items']
             )

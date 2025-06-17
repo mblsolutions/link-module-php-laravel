@@ -14,5 +14,9 @@ class LinkData extends Data
         #[Required]
         public string $link,
 
+        public string $serial = '',
+
+        public string $short_code = '',
+
     ) {}
 }

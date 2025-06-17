@@ -24,12 +24,13 @@ class LinkModuleService
         private LinksClient $linksClient
     ) {}
 
-    public function create(CreateLinksRequestData $createLinksRequest): CreateLinksResponseData
+    public function create(CreateLinksRequestData $createLinksRequest, array $headers = []): CreateLinksResponseData
     {
         try {
             return CreateLinksResponseData::from(
                 $this->linksClient->create(
-                    $createLinksRequest->toArray()
+                    $createLinksRequest->toArray(),
+                    $headers
                 )
             );
         } catch (RequestException $exception) {
@@ -41,11 +42,11 @@ class LinkModuleService
         }
     }
 
-    public function show(string $reference, string $item): ShowLinkResponseData
+    public function show(string $reference, string $item, array $headers = []): ShowLinkResponseData
     {
         try {
             return ShowLinkResponseData::from(
-                $this->linksClient->show($reference, $item)
+                $this->linksClient->show($reference, $item, $headers)
             );
         } catch (RequestException $exception) {
             $this->handleClientException($exception);
@@ -56,11 +57,11 @@ class LinkModuleService
         }
     }
 
-    public function redeem(string $reference, string $item): RedeemLinkResponseData
+    public function redeem(string $reference, string $item, $headers = []): RedeemLinkResponseData
     {
         try {
             return RedeemLinkResponseData::from(
-                $this->linksClient->redeem($reference, $item)
+                $this->linksClient->redeem($reference, $item, $headers)
             );
         } catch (RequestException $exception) {
             $this->handleClientException($exception);
@@ -71,13 +72,14 @@ class LinkModuleService
         }
     }
 
-    public function update(string $reference, UpdateLinksRequestData $updateLinksRequestData)
+    public function update(string $reference, UpdateLinksRequestData $updateLinksRequestData, $headers = [])
     {
         try {
             return UpdateLinksResponseData::from(
                 $this->linksClient->update(
                     $reference,
-                    $updateLinksRequestData->items
+                    $updateLinksRequestData->items,
+                    $headers
                 )
             );
         } catch (RequestException $exception) {
@@ -89,13 +91,14 @@ class LinkModuleService
         }
     }
 
-    public function cancel(string $reference, CancelLinksRequestData $cancelLinksRequestData)
+    public function cancel(string $reference, CancelLinksRequestData $cancelLinksRequestData, $headers = [])
     {
         try {
             return CancelLinksResponseData::from(
                 $this->linksClient->cancel(
                     $reference,
-                    $cancelLinksRequestData->items
+                    $cancelLinksRequestData->items,
+                    $headers
                 )
             );
         } catch (RequestException $exception) {

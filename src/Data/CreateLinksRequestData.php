@@ -27,6 +27,10 @@ class CreateLinksRequestData extends Data
         #[Required]
         public int $quantity = 1,
 
-        public mixed $meta = null
+        public mixed $meta = null,
+
+        public bool $short_code = false,
+
+        public string $short_code_sku = ''
     ) {}
 }
