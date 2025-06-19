@@ -14,6 +14,7 @@ use MBLSolutions\LinkModuleLaravel\Data\CancelLinksRequestData;
 use MBLSolutions\LinkModuleLaravel\Data\ErrorResponseData;
 use MBLSolutions\LinkModuleLaravel\Data\RedeemLinkResponseData;
 use MBLSolutions\LinkModuleLaravel\Data\ShowLinkResponseData;
+use MBLSolutions\LinkModuleLaravel\Data\ShowLinksGroupRequestData;
 use MBLSolutions\LinkModuleLaravel\Data\UpdateLinksRequestData;
 use MBLSolutions\LinkModuleLaravel\Data\UpdateLinksResponseData;
 use MBLSolutions\LinkModuleLaravel\Exceptions\LinksModuleRequestException;
@@ -24,12 +25,13 @@ class LinkModuleService
         private LinksClient $linksClient
     ) {}
 
-    public function create(CreateLinksRequestData $createLinksRequest): CreateLinksResponseData
+    public function create(CreateLinksRequestData $createLinksRequest, array $headers = []): CreateLinksResponseData
     {
         try {
             return CreateLinksResponseData::from(
                 $this->linksClient->create(
-                    $createLinksRequest->toArray()
+                    $createLinksRequest->toArray(),
+                    $headers
                 )
             );
         } catch (RequestException $exception) {
@@ -41,11 +43,11 @@ class LinkModuleService
         }
     }
 
-    public function show(string $reference, string $item): ShowLinkResponseData
+    public function show(string $reference, string $item, array $headers = []): ShowLinkResponseData
     {
         try {
             return ShowLinkResponseData::from(
-                $this->linksClient->show($reference, $item)
+                $this->linksClient->show($reference, $item, $headers)
             );
         } catch (RequestException $exception) {
             $this->handleClientException($exception);
@@ -56,11 +58,11 @@ class LinkModuleService
         }
     }
 
-    public function redeem(string $reference, string $item): RedeemLinkResponseData
+    public function redeem(string $reference, string $item, $headers = []): RedeemLinkResponseData
     {
         try {
             return RedeemLinkResponseData::from(
-                $this->linksClient->redeem($reference, $item)
+                $this->linksClient->redeem($reference, $item, $headers)
             );
         } catch (RequestException $exception) {
             $this->handleClientException($exception);
@@ -71,13 +73,14 @@ class LinkModuleService
         }
     }
 
-    public function update(string $reference, UpdateLinksRequestData $updateLinksRequestData)
+    public function update(string $reference, UpdateLinksRequestData $updateLinksRequestData, $headers = [])
     {
         try {
             return UpdateLinksResponseData::from(
                 $this->linksClient->update(
                     $reference,
-                    $updateLinksRequestData->items
+                    $updateLinksRequestData->items,
+                    $headers
                 )
             );
         } catch (RequestException $exception) {
@@ -88,14 +91,29 @@ class LinkModuleService
             throw $exception;
         }
     }
+    public function showLinkGroup(string $reference, ShowLinksGroupRequestData $showLinksGroupRequest, array $headers = []): CreateLinksResponseData
+    {
+        try {
+            return CreateLinksResponseData::from(
+                $this->linksClient->showLinkGroup($reference, $showLinksGroupRequest->toArray(), $headers)
+            );
+        } catch (RequestException $exception) {
+            $this->handleClientException($exception);
+        } catch (AuthenticationException $exception) {
+            $this->flushToken();
 
-    public function cancel(string $reference, CancelLinksRequestData $cancelLinksRequestData)
+            throw $exception;
+        }
+    }
+
+    public function cancel(string $reference, CancelLinksRequestData $cancelLinksRequestData, $headers = [])
     {
         try {
             return CancelLinksResponseData::from(
                 $this->linksClient->cancel(
                     $reference,
-                    $cancelLinksRequestData->items
+                    $cancelLinksRequestData->items,
+                    $headers
                 )
             );
         } catch (RequestException $exception) {

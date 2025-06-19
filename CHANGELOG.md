@@ -1,3 +1,9 @@
+# v0.5.0
++ Add support for show-link-group endpoint.
++ Add support for short codes on create endpoint.
++ Update CreateLinksResponseData.php to support detailed responses.
++ Add support for additional headers.
+
 # v0.4.2
 + Add support for mixed Meta types.
 + Fix bug with exception handling  where request body would appear empty.
