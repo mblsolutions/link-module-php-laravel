@@ -10,14 +10,10 @@ use Spatie\LaravelData\Support\Creation\CreationContext;
 class DecryptCast implements Cast
 {
 
-    public function cast(DataProperty $property, mixed $value, array $properties, CreationContext $context): mixed
+    public function cast(DataProperty $property, mixed $value, array $properties, CreationContext $context): null|string
     {
-        if (is_null($value)) {
+        if (is_null($value) || !app()->bound(LinkDecryptionService::class)) {
             return null;
-        }
-
-        if (!app()->bound(LinkDecryptionService::class)) {
-            return $value;
         }
 
         $decryptor = app(LinkDecryptionService::class);

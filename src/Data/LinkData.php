@@ -19,7 +19,9 @@ class LinkData extends Data
         public string $serial = '',
 
         #[WithCast(DecryptCast::class)]
-        public string|null $short_code = null,
+        public string|null $decrypted_short_code = null,
+
+        public string|null $short_code = null
 
     ) {}
 }
