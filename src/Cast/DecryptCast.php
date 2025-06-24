@@ -16,7 +16,7 @@ class DecryptCast implements Cast
             return null;
         }
 
-        if (!app()->resolved(LinkDecryptionService::class)) {
+        if (!app()->bound(LinkDecryptionService::class)) {
             return $value;
         }
 

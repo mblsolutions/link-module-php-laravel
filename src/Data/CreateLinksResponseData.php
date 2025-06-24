@@ -41,10 +41,10 @@ class CreateLinksResponseData extends Data
                         $link = (isset($item['link'])) ? $item['link'] : str_replace("{item_uuid}", $item['uuid'], $link);
                         $serial = (isset($item['serial'])) ? $item['serial'] : '';
                         $short_code = (isset($item['short_code'])) ? $item['short_code'] : '';
-                        return new LinkData(uuid: $item['uuid'], link: $link, serial: $serial, short_code: $short_code);
+                        return LinkData::from(['uuid' => $item['uuid'], 'link' => $link, 'serial' => $serial, 'short_code' => $short_code]);
                     } else {
                         $link = str_replace("{item_uuid}", $item, $link);
-                        return new LinkData(uuid: $item, link: $link);
+                        return LinkData::from(['uuid' => $item, 'link' => $link]);
                     }
                 },
                 $data['items']
