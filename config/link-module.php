@@ -45,6 +45,21 @@ return [
             'LINK_MODULE_AUTH_TOKEN_CACHE_KEY',
             ((string) env('APP_NAME')) . ((string) env('APP_ENV')) . '-link-module-auth-token'
         ),
-    ]
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Decryption
+    |--------------------------------------------------------------------------
+    |
+    | Credentials to decrypt encrypted link module shortcodes.
+    |
+    */
+    'decrypt' => [
+        'enabled' => env('LINK_MODULE_DECRYPT_ENABLED', true),
+        'cipher' => env('LINK_MODULE_DECRYPT_CIPHER', 'chacha20'),
+        'key' => env('LINK_MODULE_DECRYPT_KEY', ''),
+        'iv' => env('LINK_MODULE_DECRYPT_IV', ''),
+    ],
 
 ];

@@ -2,7 +2,9 @@
 
 namespace MBLSolutions\LinkModuleLaravel\Data;
 
+use MBLSolutions\LinkModuleLaravel\Cast\DecryptCast;
 use Spatie\LaravelData\Attributes\Validation\Required;
+use Spatie\LaravelData\Attributes\WithCast;
 use Spatie\LaravelData\Data;
 
 class LinkData extends Data
@@ -16,7 +18,10 @@ class LinkData extends Data
 
         public string $serial = '',
 
-        public string $short_code = '',
+        #[WithCast(DecryptCast::class)]
+        public string|null $decrypted_short_code = null,
+
+        public string|null $short_code = null
 
     ) {}
 }

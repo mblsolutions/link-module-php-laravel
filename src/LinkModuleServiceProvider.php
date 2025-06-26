@@ -49,5 +49,15 @@ class LinkModuleServiceProvider extends ServiceProvider
                 linksClient: $this->app->make(Links::class),
             );
         });
+
+        if ($this->app['config']['link-module.decrypt.enabled']) {
+            $this->app->singleton(LinkDecryptionService::class, function () {
+                return new LinkDecryptionService(
+                    cipher: $this->app['config']['link-module.decrypt.cipher'],
+                    key: $this->app['config']['link-module.decrypt.key'],
+                    iv: $this->app['config']['link-module.decrypt.iv'],
+                );
+            });
+        }
     }
 }

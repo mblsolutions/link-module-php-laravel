@@ -1,3 +1,6 @@
+# v0.5.1
++ Add support for decrypting short codes.
+
 # v0.5.0
 + Add support for show-link-group endpoint.
 + Add support for short codes on create endpoint.
