@@ -1,3 +1,6 @@
+# v0.5.2
++ Support the redeem API returning ShowLinkResponseData.
+
 # v0.5.1
 + Add support for decrypting short codes.
 

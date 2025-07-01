@@ -58,12 +58,20 @@ class LinkModuleService
         }
     }
 
-    public function redeem(string $reference, string $item, $headers = []): RedeemLinkResponseData
+    public function redeem(string $reference, string $item, $headers = []): RedeemLinkResponseData|ShowLinkResponseData
     {
         try {
-            return RedeemLinkResponseData::from(
-                $this->linksClient->redeem($reference, $item, $headers)
-            );
+            $response = $this->linksClient->redeem($reference, $item, $headers);
+
+            if(array_key_exists('status', $response)) {
+                return RedeemLinkResponseData::from(
+                    $response
+                );
+            } else {
+                return ShowLinkResponseData::from(
+                    $response
+                );
+            }
         } catch (RequestException $exception) {
             $this->handleClientException($exception);
         } catch (AuthenticationException $exception) {
