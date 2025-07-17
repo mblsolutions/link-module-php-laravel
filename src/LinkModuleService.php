@@ -28,7 +28,7 @@ class LinkModuleService
     public function create(CreateLinksRequestData $createLinksRequest, array $headers = []): CreateLinksResponseData
     {
         try {
-            return CreateLinksResponseData::from(
+            return CreateLinksResponseData::fromArray(
                 $this->linksClient->create(
                     $createLinksRequest->toArray(),
                     $headers
@@ -63,7 +63,7 @@ class LinkModuleService
         try {
             $response = $this->linksClient->redeem($reference, $item, $headers);
 
-            if(array_key_exists('status', $response)) {
+            if (array_key_exists('status', $response)) {
                 return RedeemLinkResponseData::from(
                     $response
                 );
@@ -102,7 +102,7 @@ class LinkModuleService
     public function showLinkGroup(string $reference, ShowLinksGroupRequestData $showLinksGroupRequest, array $headers = []): CreateLinksResponseData
     {
         try {
-            return CreateLinksResponseData::from(
+            return CreateLinksResponseData::fromArray(
                 $this->linksClient->showLinkGroup($reference, $showLinksGroupRequest->toArray(), $headers)
             );
         } catch (RequestException $exception) {

@@ -1,3 +1,6 @@
+# v0.6.2
++ Speed up the creation of CreateLinksResponseData.
+
 # v0.6.1
 + Support the redeem API returning ShowLinkResponseData.
 
