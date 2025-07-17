@@ -1,3 +1,6 @@
+# v0.6.3
++ Fix decryption of short codes in CreateLinksResponseData.
+
 # v0.6.2
 + Speed up the creation of CreateLinksResponseData.
 

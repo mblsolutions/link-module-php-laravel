@@ -4,6 +4,7 @@ namespace MBLSolutions\LinkModuleLaravel\Data;
 
 use Carbon\Carbon;
 use Carbon\CarbonInterface;
+use MBLSolutions\LinkModuleLaravel\LinkDecryptionService;
 use Spatie\LaravelData\Attributes\DataCollectionOf;
 use Spatie\LaravelData\Attributes\MapInputName;
 use Spatie\LaravelData\Attributes\Validation\Required;
@@ -32,16 +33,18 @@ class CreateLinksResponseData extends Data
     public static function fromArray(array $data): self
     {
         $link = (isset($data["link"])) ? str_replace("{reference_uuid}", $data["reference_uuid"], $data["link"]) : '';
+        $linkDecryptionService = app()->bound(LinkDecryptionService::class) ? app(LinkDecryptionService::class) : null;
+
         return new self(
             referenceUuid: $data['reference_uuid'],
             expiration: Carbon::parse($data['expiration']),
             items: array_map(
-                function ($item) use ($data, $link) {
+                function ($item) use ($link, $linkDecryptionService) {
                     if (is_array($item)) {
                         $link = (isset($item['link'])) ? $item['link'] : str_replace("{item_uuid}", $item['uuid'], $link);
                         $serial = (isset($item['serial'])) ? $item['serial'] : '';
                         $short_code = (isset($item['short_code'])) ? $item['short_code'] : '';
-                        return new LinkData(uuid: $item['uuid'], link: $link, serial: $serial, decrypted_short_code: $short_code, short_code: $short_code);
+                        return new LinkData(uuid: $item['uuid'], link: $link, serial: $serial, decrypted_short_code: CreateLinksResponseData::decryptShortCode($short_code, $linkDecryptionService), short_code: $short_code);
                     } else {
                         $link = str_replace("{item_uuid}", $item, $link);
                         return new LinkData(uuid: $item, link: $link);
@@ -50,5 +53,14 @@ class CreateLinksResponseData extends Data
                 $data['items']
             )
         );
+    }
+
+    private static function decryptShortCode(string|null $value, LinkDecryptionService|null $linkDecryptionService): string|null
+    {
+        if ($linkDecryptionService === null || $value === null || $value === '') {
+            return null;
+        }
+
+        return $linkDecryptionService->decrypt($value);
     }
 }
