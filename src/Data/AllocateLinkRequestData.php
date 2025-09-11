@@ -27,10 +27,10 @@ class AllocateLinkRequestData extends Data
         public mixed $meta = null,
 
         #[Required]
-        public bool $short_code = false,
+        public string $short_code,
 
         #[Required]
-        public bool $serial = false,
+        public string $serial,
 
         #[Required]
         public string $short_code_sku = ''
