@@ -13,7 +13,7 @@ class UpdateLinkByShortCodeData extends Data
 {
     public function __construct(
         #[Required]
-        public string $shortCode,
+        public string $short_code,
 
         #[Required]
         public string|array|null $value = null,
