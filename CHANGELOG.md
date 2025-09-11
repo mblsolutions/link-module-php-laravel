@@ -1,3 +1,9 @@
+# v0.7.0
++ Add support for allocate link endpoint.
++ Add support for serial endpoints.
++ Add support for short code endpoints.
++ Rejig exception handling so that's it's not repeated for each end point.
+
 # v0.6.3
 + Fix decryption of short codes in CreateLinksResponseData.
 
