@@ -5,6 +5,8 @@ namespace MBLSolutions\LinkModuleLaravel;
 use Illuminate\Support\ServiceProvider;
 use MBLSolutions\LinkModule\Auth\LinkModule;
 use MBLSolutions\LinkModule\Links;
+use MBLSolutions\LinkModule\Serial;
+use MBLSolutions\LinkModule\ShortCode;
 use MBLSolutions\LinkModuleLaravel\Auth\CachedTokenResolver;
 
 class LinkModuleServiceProvider extends ServiceProvider
@@ -47,6 +49,8 @@ class LinkModuleServiceProvider extends ServiceProvider
 
             return new LinkModuleService(
                 linksClient: $this->app->make(Links::class),
+                serialClient: $this->app->make(Serial::class),
+                shortCodeClient: $this->app->make(ShortCode::class),
             );
         });
 
