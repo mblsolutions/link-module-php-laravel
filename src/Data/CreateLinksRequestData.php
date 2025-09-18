@@ -29,6 +29,10 @@ class CreateLinksRequestData extends Data
 
         public mixed $meta = null,
 
+        public mixed $asset_meta = null,
+
+        public string $asset_identifier = '',
+
         public bool $short_code = false,
 
         public string $short_code_sku = ''
