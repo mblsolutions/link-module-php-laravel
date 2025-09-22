@@ -5,6 +5,7 @@ namespace MBLSolutions\LinkModuleLaravel;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
+use MBLSolutions\LinkModule\AssetMetadata;
 use MBLSolutions\LinkModule\Exceptions\AuthenticationException;
 use MBLSolutions\LinkModule\Links as LinksClient;
 use MBLSolutions\LinkModule\Serial;
@@ -27,9 +28,10 @@ use MBLSolutions\LinkModuleLaravel\Exceptions\LinksModuleRequestException;
 class LinkModuleService
 {
     public function __construct(
-        private LinksClient $linksClient,
-        private Serial $serialClient,
-        private ShortCode $shortCodeClient
+        private readonly LinksClient $linksClient,
+        private readonly Serial $serialClient,
+        private readonly ShortCode $shortCodeClient,
+        private readonly AssetMetadata $metadataClient
     ) {}
 
     public function create(CreateLinksRequestData $createLinksRequest, array $headers = []): CreateLinksResponseData
@@ -213,6 +215,13 @@ class LinkModuleService
                     $headers
                 )
             );
+        });
+    }
+
+    public function updateMetadataForAsset(string $assetIdentifier, mixed $metadata, array $headers = []): array
+    {
+        return $this->handleExceptions(function () use ($assetIdentifier, $metadata, $headers): array {
+            return $this->metadataClient->updateForAsset($assetIdentifier, $metadata, $headers);
         });
     }
 
