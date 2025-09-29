@@ -19,9 +19,6 @@ class CreateLinksRequestData extends Data
         public CarbonInterface $expiration,
 
         #[Required]
-        public string $template,
-
-        #[Required]
         public string $callback,
 
         #[Required]

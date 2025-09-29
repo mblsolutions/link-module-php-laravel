@@ -1,3 +1,6 @@
+# v0.8.0
++ Remove template field.
+
 # v0.7.1
 + Add asset metadata endpoint.
 

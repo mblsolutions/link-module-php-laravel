@@ -19,9 +19,6 @@ class AllocateLinkRequestData extends Data
         public CarbonInterface $expiration,
 
         #[Required]
-        public string $template,
-
-        #[Required]
         public string $callback,
 
         public mixed $meta = null,
