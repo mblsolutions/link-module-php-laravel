@@ -23,6 +23,10 @@ class AllocateLinkRequestData extends Data
 
         public mixed $meta = null,
 
+        public mixed $asset_meta = null,
+
+        public string $asset_identifier = '',
+
         #[Required]
         public string $short_code,
 
@@ -31,5 +35,6 @@ class AllocateLinkRequestData extends Data
 
         #[Required]
         public string $short_code_sku = ''
+
     ) {}
 }

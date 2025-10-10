@@ -1,3 +1,7 @@
+
+# v0.8.1
++ Add asset meta data to allocate link request.
+
 # v0.8.0
 + Remove template field.
 
