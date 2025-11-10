@@ -1,3 +1,6 @@
+# v0.9.0
++ Add support for asset endpoint.
+
 # v0.8.1
 + Add asset meta data to allocate link request.
 
