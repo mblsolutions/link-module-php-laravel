@@ -3,6 +3,7 @@
 namespace MBLSolutions\LinkModuleLaravel;
 
 use Illuminate\Support\ServiceProvider;
+use MBLSolutions\LinkModule\Asset;
 use MBLSolutions\LinkModule\AssetMetadata;
 use MBLSolutions\LinkModule\Auth\LinkModule;
 use MBLSolutions\LinkModule\Links;
@@ -53,6 +54,7 @@ class LinkModuleServiceProvider extends ServiceProvider
                 serialClient: $this->app->make(Serial::class),
                 shortCodeClient: $this->app->make(ShortCode::class),
                 metadataClient: $this->app->make(AssetMetadata::class),
+                assetClient: $this->app->make(Asset::class),
             );
         });
 
