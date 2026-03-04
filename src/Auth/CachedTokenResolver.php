@@ -40,7 +40,7 @@ class CachedTokenResolver implements TokenResolverInterface
         if (!$cacheHit) {
             $accessToken = $this->baseTokenResolver->resolveToken();
 
-            Cache::set($this->cacheKey, $accessToken, $accessToken->expiresIn - 60);
+            Cache::put($this->cacheKey, $accessToken, $accessToken->expiresIn - 60);
         } else {
             $accessToken = $cacheHit;
         }
