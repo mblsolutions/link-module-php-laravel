@@ -1,3 +1,6 @@
 /vendor/
 /.idea
 composer.lock
+/.phpstan-cache/
+/.paratest*
+/.phpunit.result.cache
