@@ -19,8 +19,7 @@ class CachedTokenResolver implements TokenResolverInterface
         string $clientSecret,
 
         private string $cacheKey
-    )
-    {
+    ) {
         $this->baseTokenResolver = new TokenResolver(
             tokenUri: $tokenUri,
             clientId: $clientId,
@@ -33,12 +32,12 @@ class CachedTokenResolver implements TokenResolverInterface
         $cacheHit = Cache::get($this->cacheKey);
 
         // If the token is in the cache but not what we expect or expired, remove it
-        if ($cacheHit && (!( $cacheHit instanceof AccessToken) || $cacheHit->isExpired())) {
+        if ($cacheHit && (!($cacheHit instanceof AccessToken) || $cacheHit->isExpired())) {
             Cache::forget($this->cacheKey);
             $cacheHit = null;
         }
 
-        if (! $cacheHit) {
+        if (!$cacheHit) {
             $accessToken = $this->baseTokenResolver->resolveToken();
 
             Cache::set($this->cacheKey, $accessToken, $accessToken->expiresIn - 60);
