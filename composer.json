@@ -7,7 +7,7 @@
     "prefer-stable": true,
     "require": {
         "php": "^8.2|^8.4",
-        "mblsolutions/link-module-php": "dev-feature/AB+114585-php84-support",
+        "mblsolutions/link-module-php": "^1.0",
         "illuminate/support": "^10.0|^11.0|^12.0",
         "spatie/laravel-data": "^4.7",
         "nesbot/carbon": "^2.72.2|^3.0"
