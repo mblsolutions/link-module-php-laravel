@@ -1,3 +1,8 @@
+# v1.0.0
++ Add PHP 8.4 support; bump constraints to support Laravel 12;
++ Add PHPStan (level 1) with Larastan, PHPUnit 11, and Paratest with full test suite coverage.
++ Fix `flushToken()` cache key bug, add missing parameter types, and resolve PHP 8.x required-after-optional parameter deprecations.
+
 # v0.9.0
 + Add support for asset endpoint.
 
