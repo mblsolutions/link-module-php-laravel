@@ -8,10 +8,17 @@ class LinkDecryptionService
         private string $cipher,
         private string $key,
         private string $iv,
-    ) {}
+    ) {
+    }
 
     public function decrypt(string $value): string
     {
-        return openssl_decrypt($value, $this->cipher, base64_decode($this->key), 0, base64_decode($this->iv));
+        $result = @openssl_decrypt($value, $this->cipher, base64_decode($this->key), 0, base64_decode($this->iv));
+
+        if ($result === false) {
+            throw new \RuntimeException('Failed to decrypt value: openssl_decrypt returned false.');
+        }
+
+        return $result;
     }
 }

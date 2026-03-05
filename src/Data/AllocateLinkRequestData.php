@@ -21,6 +21,12 @@ class AllocateLinkRequestData extends Data
         #[Required]
         public string $callback,
 
+        #[Required]
+        public string $short_code,
+
+        #[Required]
+        public string $serial,
+
         public mixed $meta = null,
 
         public mixed $asset_meta = null,
@@ -28,13 +34,8 @@ class AllocateLinkRequestData extends Data
         public string $asset_identifier = '',
 
         #[Required]
-        public string $short_code,
-
-        #[Required]
-        public string $serial,
-
-        #[Required]
         public string $short_code_sku = ''
 
-    ) {}
+    ) {
+    }
 }

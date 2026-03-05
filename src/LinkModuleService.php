@@ -34,7 +34,8 @@ class LinkModuleService
         private readonly ShortCode $shortCodeClient,
         private readonly AssetMetadata $metadataClient,
         private readonly Asset $assetClient
-    ) {}
+    ) {
+    }
 
     public function create(CreateLinksRequestData $createLinksRequest, array $headers = []): CreateLinksResponseData
     {
@@ -129,7 +130,7 @@ class LinkModuleService
         });
     }
 
-    public function redeemBySerial($serial, array $headers = []): RedeemLinkResponseData|ShowLinkResponseData
+    public function redeemBySerial(string $serial, array $headers = []): RedeemLinkResponseData|ShowLinkResponseData
     {
         return $this->handleExceptions(function () use ($serial, $headers): RedeemLinkResponseData|ShowLinkResponseData {
             $response = $this->serialClient->redeem($serial, $headers);
@@ -170,7 +171,7 @@ class LinkModuleService
         });
     }
 
-    public function showByShortCode($shortCode, array $headers = []): ShowLinkResponseData
+    public function showByShortCode(string $shortCode, array $headers = []): ShowLinkResponseData
     {
         return $this->handleExceptions(function () use ($shortCode, $headers): ShowLinkResponseData {
             return ShowLinkResponseData::from(
@@ -179,7 +180,7 @@ class LinkModuleService
         });
     }
 
-    public function redeemByShortCode($shortCode, array $headers = []): RedeemLinkResponseData|ShowLinkResponseData
+    public function redeemByShortCode(string $shortCode, array $headers = []): RedeemLinkResponseData|ShowLinkResponseData
     {
         return $this->handleExceptions(function () use ($shortCode, $headers): RedeemLinkResponseData|ShowLinkResponseData {
             $response = $this->shortCodeClient->redeem($shortCode, $headers);
@@ -248,7 +249,7 @@ class LinkModuleService
     private function handleClientException(RequestException $exception): never
     {
         $request = $exception->getRequest();
-        $code = (int)$exception->getCode();
+        $code = (int) $exception->getCode();
         $errorDetails = null;
         $response = null;
 
@@ -279,6 +280,6 @@ class LinkModuleService
 
     private function flushToken(): void
     {
-        Cache::forget(Config::get('link-module.cache_key'));
+        Cache::forget(Config::get('link-module.auth.token_cache_key'));
     }
 }

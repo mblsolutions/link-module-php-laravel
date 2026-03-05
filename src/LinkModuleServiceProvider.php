@@ -13,14 +13,14 @@ use MBLSolutions\LinkModuleLaravel\Auth\CachedTokenResolver;
 
 class LinkModuleServiceProvider extends ServiceProvider
 {
-    public function boot()
+    public function boot(): void
     {
         $this->publishes([
             __DIR__ . '/../config/link-module.php' => config_path('link-module.php')
         ], 'config');
     }
 
-    public function register()
+    public function register(): void
     {
         $this->mergeConfigFrom(
             __DIR__ . '/../config/link-module.php',
@@ -41,7 +41,7 @@ class LinkModuleServiceProvider extends ServiceProvider
 
         $this->app->singleton(LinkModuleService::class, function () {
 
-            if (! $this->app['config']['link-module.auth.enabled']) {
+            if (!$this->app['config']['link-module.auth.enabled']) {
                 LinkModule::disableToken();
             } else {
                 LinkModule::setTokenResolver(
