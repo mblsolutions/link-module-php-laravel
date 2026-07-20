@@ -21,4 +21,15 @@ class LinkDecryptionService
 
         return $result;
     }
+
+    public function encrypt(string $value): string
+    {
+        $result = @openssl_encrypt($value, $this->cipher, base64_decode($this->key), 0, base64_decode($this->iv));
+
+        if ($result === false) {
+            throw new \RuntimeException('Failed to encrypt value: openssl_encrypt returned false.');
+        }
+
+        return $result;
+    }
 }
