@@ -115,6 +115,30 @@ class LinkModuleServiceTest extends TestCase
         $result = $this->service->show('ref-uuid', 'item-uuid');
 
         $this->assertSame('item-uuid', $result->uuid);
+        $this->assertNull($result->serial);
+        $this->assertNull($result->short_code);
+    }
+
+    #[Test]
+    public function it_shows_a_link_with_serial_and_short_code_when_included(): void
+    {
+        $this->linksClient
+            ->shouldReceive('show')
+            ->once()
+            ->with('ref-uuid', 'item-uuid', ['X-Include-Short-Code' => 'true'])
+            ->andReturn([
+                'uuid' => 'item-uuid',
+                'value' => 'active',
+                'meta' => null,
+                'serial' => '4300066247',
+                'short_code' => 'OKhl3n37luAJcfDTGQwGTlKW',
+            ]);
+
+        $result = $this->service->show('ref-uuid', 'item-uuid', ['X-Include-Short-Code' => 'true']);
+
+        $this->assertSame('item-uuid', $result->uuid);
+        $this->assertSame('4300066247', $result->serial);
+        $this->assertSame('OKhl3n37luAJcfDTGQwGTlKW', $result->short_code);
     }
 
     #[Test]

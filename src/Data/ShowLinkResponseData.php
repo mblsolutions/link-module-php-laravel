@@ -22,6 +22,10 @@ class ShowLinkResponseData extends Data
         public ?CarbonInterface $expiration = null,
 
         #[Required]
-        public mixed $meta = null
+        public mixed $meta = null,
+
+        public ?string $serial = null,
+
+        public ?string $short_code = null
     ) {}
 }

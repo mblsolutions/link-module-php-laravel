@@ -1,3 +1,6 @@
+# v1.1.0
++ Add optional `serial` and `short_code` properties to `ShowLinkResponseData`.
+
 # v1.0.0
 + Add PHP 8.4 support; bump constraints to support Laravel 12;
 + Add PHPStan (level 1) with Larastan, PHPUnit 11, and Paratest with full test suite coverage.
