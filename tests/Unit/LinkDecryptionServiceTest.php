@@ -51,4 +51,34 @@ class LinkDecryptionServiceTest extends TestCase
 
         $service->decrypt('garbage-value');
     }
+
+    #[Test]
+    public function it_encrypts_a_value_that_can_be_decrypted_with_the_same_key_and_iv(): void
+    {
+        $rawKey = base64_decode($this->key);
+        $rawIv = base64_decode($this->iv);
+        $plaintext = 'my-short-code';
+
+        $service = new LinkDecryptionService('chacha20', $this->key, $this->iv);
+
+        $encrypted = $service->encrypt($plaintext);
+
+        $this->assertSame($plaintext, openssl_decrypt($encrypted, 'chacha20', $rawKey, 0, $rawIv));
+    }
+
+    #[Test]
+    public function it_throws_a_runtime_exception_when_encryption_fails(): void
+    {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Failed to encrypt value');
+
+        // An unknown cipher causes openssl_encrypt to return false reliably
+        $service = new LinkDecryptionService(
+            'invalid-cipher-name',
+            base64_encode(str_repeat('a', 32)),
+            base64_encode(str_repeat('b', 16))
+        );
+
+        $service->encrypt('plaintext-value');
+    }
 }
